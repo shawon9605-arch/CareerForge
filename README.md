@@ -1,5 +1,4 @@
 # CareerForge
-This is our CareerForge Project
 CareerForge is a job readiness platform designed to help undergraduate students bridge the gap between their current skill set and industry requirements. The system provides a centralized environment where students can manage their profiles, showcase their skills, and receive personalized job recommendations based on their interests and competencies.
 
 The platform enables users to dynamically add and manage skills through an interactive interface, while also analyzing these skills to suggest suitable job roles. It incorporates a smart matching mechanism that calculates job compatibility by comparing user skills with job requirements, helping students identify opportunities that align with their strengths.
