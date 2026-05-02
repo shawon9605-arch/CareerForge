@@ -1,4 +1,30 @@
 <?php
+    if(isset($_POST['gpa']) || isset($_POST['interests'])){
+
+    $gpa = $_POST['gpa'] ?? '';
+    $interests = $_POST['interests'] ?? '';
+    $education = $_POST['education'] ?? '';
+    $experience = $_POST['experience'] ?? '';
+    $stmt = $conn->prepare("
+      UPDATE students 
+      SET gpa=?, interests=?, education=?, experience=?, projects=? 
+      WHERE email=?
+      ");
+
+      $stmt->bind_param("dsssss", $gpa, $interests, $education, $experience, $projects, $email);
+      $stmt->execute();
+
+    $stmt = $conn->prepare("
+        UPDATE students 
+        SET gpa=?, interests=?, education=?, experience=?, projects=? 
+        WHERE email=?
+    ");
+
+    $stmt->bind_param("dsssss", $gpa, $interests, $education, $experience, $projects, $email);
+    $stmt->execute();
+} 
+?>
+<?php
 include('../config/db.php');
 
 if (session_status() === PHP_SESSION_NONE) {

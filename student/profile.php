@@ -108,7 +108,32 @@ if (!empty($user['image'])) {
                         <button type="button" onclick="addSkill()">Add</button>
                     </div>
                 </div>
+                <!-- EDUCATION -->
+                <div class="card">
+                    <h3>🎓 Academic Background</h3>
+                    <textarea id="educationInput" placeholder="Your education..."><?php echo $user['education'] ?? ''; ?></textarea>
+                </div>
 
+                <!-- EXPERIENCE -->
+                <div class="card">
+                    <h3>💼 Work Experience</h3>
+                    <textarea id="experienceInput" placeholder="Your experience..."><?php echo $user['experience'] ?? ''; ?></textarea>
+                </div>
+
+                <!-- PROJECTS -->
+                <div class="card">
+                <h3>📁 Projects</h3>
+
+                <div id="projectContainer"></div>
+
+                <div class="project-input">
+                    <input type="text" id="projTitle" placeholder="Project Title">
+                    <input type="text" id="projDesc" placeholder="Description">
+                    <input type="text" id="projLink" placeholder="GitHub Link">
+
+                    <button type="button" onclick="addProject()">Add Project</button>
+                </div>
+            </div>
                 <!-- SMART SUGGESTIONS -->
                 <div class="card">
                     <h3>💡 Smart Suggestions</h3>
@@ -192,6 +217,9 @@ function saveProfile() {
     const name = document.getElementById("nameInput").value;
     const gpa = document.getElementById("gpaInput").value;
     const interests = document.getElementById("interestInput").value;
+    const education = document.getElementById("educationInput").value;
+    const experience = document.getElementById("experienceInput").value;
+    const projects = document.getElementById("projectsInput").value;
 
     const imageFile = document.getElementById("profileImageInput").files[0];
 
@@ -200,6 +228,9 @@ function saveProfile() {
     body.set("name", name);
     body.set("gpa", gpa);
     body.set("interests", interests);
+    body.set("education", education);
+    body.set("experience", experience);
+    body.set("projects", projects);
     body.set("skills", skills.join(','));
 
     if (imageFile) {
@@ -239,4 +270,93 @@ function openCV() {
 }
 
 renderSkills();
+</script>
+
+<script>
+let projects = <?php echo $user['projects'] ? $user['projects'] : '[]'; ?>;
+projects = JSON.parse(projects || "[]");
+</script>
+
+<script>
+function renderProjects() {
+    let container = document.getElementById("projectContainer");
+    container.innerHTML = "";
+
+    projects.forEach((p, index) => {
+        let card = document.createElement("div");
+        card.className = "project-card";
+
+        card.innerHTML = `
+    <h4>${p.title}</h4>
+    <p>${p.desc}</p>
+
+    <a href="${p.link}" target="_blank" onclick="increaseView(${index})">
+        🔗 GitHub
+    </a>
+
+    <div class="project-meta">
+        ⭐ Rating: ${p.rating}
+        👁️ Views: ${p.views}
+    </div>
+
+    <div class="rating-buttons">
+        <button onclick="rateProject(${index}, 1)">⭐</button>
+        <button onclick="rateProject(${index}, 2)">⭐⭐</button>
+        <button onclick="rateProject(${index}, 3)">⭐⭐⭐</button>
+        <button onclick="rateProject(${index}, 4)">⭐⭐⭐⭐</button>
+        <button onclick="rateProject(${index}, 5)">⭐⭐⭐⭐⭐</button>
+    </div>
+
+    <button onclick="removeProject(${index})">❌ Remove</button>
+`;
+
+        container.appendChild(card);
+    });
+}
+
+function addProject() {
+    let title = document.getElementById("projTitle").value.trim();
+    let desc = document.getElementById("projDesc").value.trim();
+    let link = document.getElementById("projLink").value.trim();
+
+    if (!title || !link) return;
+
+    projects.push({
+    title,
+    desc,
+    link,
+    rating: 0,
+    views: 0
+    });
+
+    renderProjects();
+    updateProjectsInput();
+
+    document.getElementById("projTitle").value = "";
+    document.getElementById("projDesc").value = "";
+    document.getElementById("projLink").value = "";
+}
+
+function removeProject(index) {
+    projects.splice(index, 1);
+    renderProjects();
+    updateProjectsInput();
+}
+
+function updateProjectsInput() {
+    document.getElementById("projectsHidden").value = JSON.stringify(projects);
+}
+
+function rateProject(index, value) {
+    projects[index].rating = value;
+    renderProjects();
+    updateProjectsInput();
+}
+
+function increaseView(index) {
+    projects[index].views += 1;
+    updateProjectsInput();
+}
+// INIT
+renderProjects();
 </script>

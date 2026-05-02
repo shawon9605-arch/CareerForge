@@ -712,3 +712,40 @@ form button {
     width: 100%;
     margin-top: 20px;
 }
+
+textarea {
+    min-height: 90px;
+    resize: none;
+}
+
+.project-card {
+    background: rgba(255,255,255,0.08);
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+.project-card a {
+    display: inline-block;
+    margin-top: 5px;
+    color: #ffb347;
+}
+
+.project-card button {
+    margin-top: 8px;
+    background: red;
+}
+
+.project-meta {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #ccc;
+}
+
+.rating-buttons button {
+    margin: 3px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    background: #222;
+    color: #ffb347;
+}
