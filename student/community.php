@@ -43,6 +43,7 @@ $user = $conn->query("SELECT * FROM students WHERE email='$email'")->fetch_assoc
 
 <div class="dashboard">
 
+    <!-- SIDEBAR -->
     <div class="sidebar">
         <h2>🔥 CareerForge</h2>
         <a href="dashboard.php">Dashboard</a>
@@ -51,12 +52,12 @@ $user = $conn->query("SELECT * FROM students WHERE email='$email'")->fetch_assoc
         <a href="community.php">Community</a>
     </div>
 
-
+    <!-- MAIN -->
     <div class="main">
 
         <h1>💬 Community</h1>
 
-
+        <!-- CREATE POST -->
         <div class="card">
             <form method="POST" action="post.php">
                 <textarea name="content" placeholder="Share your thoughts..."></textarea>
@@ -64,10 +65,10 @@ $user = $conn->query("SELECT * FROM students WHERE email='$email'")->fetch_assoc
             </form>
         </div>
 
-
+        <!-- POSTS -->
         <div class="feed">
 
-
+            <!-- SAMPLE POST -->
             <div class="post-card">
                 <h4>Imran Hossain</h4>
                 <p>Just cleared my frontend interview! 🎉</p>
@@ -86,7 +87,7 @@ $user = $conn->query("SELECT * FROM students WHERE email='$email'")->fetch_assoc
 
     </div>
 
-
+    <!-- RIGHT PANEL (MENTORS) -->
     <div class="right-panel">
 
         <h3>👨‍🏫 Mentors</h3>

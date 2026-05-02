@@ -1,19 +1,29 @@
 <?php
 include('../config/db.php');
- if (session_status() === PHP_SESSION_NONE) {
+
+/* START SESSION */
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
-} 
+}
+
+/* LOGIN CHECK */
+if (!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
 
 $email = $_SESSION['email'];
+
+/* FETCH USER */
 $result = $conn->query("SELECT skills FROM students WHERE email='$email'");
 $user = $result->fetch_assoc();
 
-$userSkills = explode(',', strtolower($user['skills']));
+/* SAFE SKILLS */
+$userSkills = [];
+if (!empty($user['skills'])) {
+    $userSkills = explode(',', strtolower($user['skills']));
+}
 ?>
-
-<? if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-} ?>
 <link rel="stylesheet" href="../assets/style.css">
 
 <div class="dashboard">
@@ -22,9 +32,9 @@ $userSkills = explode(',', strtolower($user['skills']));
     <div class="sidebar">
         <h2>🔥 CareerForge</h2>
         <a href="dashboard.php">Dashboard</a>
-        <a href="#">Profile</a>
+        <a href="profile.php">Profile</a>
         <a href="jobs.php">Jobs</a>
-        <a href="#">Community</a>
+        <a href="community.php">Community</a>
     </div>
 
     <!-- MAIN -->

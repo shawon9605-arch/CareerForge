@@ -1,26 +1,41 @@
+<?php
+include('../config/db.php');
+
+/* START SESSION SAFELY */
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+/* 🔐 LOGIN CHECK */
+if (!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$email = $_SESSION['email'];
+
+/* FETCH USER */
+$result = $conn->query("SELECT * FROM students WHERE email='$email'");
+$user = $result->fetch_assoc();
+
+/* SAFETY CHECK */
+if (!$user) {
+    die("User not found. Please login again.");
+}
+
+/* SAFE SKILLS */
+$skills = [];
+if (!empty($user['skills'])) {
+    $skills = explode(',', $user['skills']);
+}
+?>
+
 <?php if(isset($_GET['success'])): ?>
     <div class="success-msg">
         ✅ Profile updated successfully!
     </div>
 <?php endif; ?>
 
-
-<?php 
-include('../config/db.php'); 
-session_start();
-
-$email = $_SESSION['email'];
-$result = $conn->query("SELECT * FROM students WHERE email='$email'");
-$user = $result->fetch_assoc();
-
-$skills = explode(',', $user['skills']);
-?>
-
-
-
-<? if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-} ?>
 <link rel="stylesheet" href="../assets/style.css">
 
 <div class="dashboard">
@@ -28,10 +43,10 @@ $skills = explode(',', $user['skills']);
     <!-- SIDEBAR -->
     <div class="sidebar">
         <h2>🔥 CareerForge</h2>
-        <a href="#">Dashboard</a>
+        <a href="dashboard.php">Dashboard</a>
         <a href="profile.php">Profile</a>
         <a href="jobs.php">Jobs</a>
-        <a href="#">Community</a>
+        <a href="community.php">Community</a>
     </div>
 
     <!-- MAIN -->
@@ -43,14 +58,13 @@ $skills = explode(',', $user['skills']);
 
             <div class="profile">
                 <img src="../assets/user.png" alt="profile">
-                <span>Student</span>
+                <span><?php echo $user['name'] ?? 'Student'; ?></span>
             </div>
         </div>
 
         <!-- STATS -->
         <div class="stats">
 
-            <!-- PROGRESS -->
             <div class="progress-card">
                 <div class="circle">
                     <span>75%</span>
@@ -59,7 +73,7 @@ $skills = explode(',', $user['skills']);
             </div>
 
             <div class="stat-card">
-                <h3>5</h3>
+                <h3><?php echo count($skills); ?></h3>
                 <p>Skills</p>
             </div>
 
@@ -70,50 +84,40 @@ $skills = explode(',', $user['skills']);
 
         </div>
 
-        <!-- SKILLS TAGS -->
-            <div class="card">
-                <h3>Your Skills</h3>
+        <!-- SKILLS -->
+        <div class="card">
+            <h3>Your Skills</h3>
 
-                <!-- TAG DISPLAY -->
-                <div class="tags" id="skillsContainer">
-                    <?php foreach($skills as $skill): ?>
-                        <?php if(trim($skill) != ""): ?>
-                            <span class="tag">
-                                <?php echo trim($skill); ?>
-                                <button class="remove-btn" onclick="removeSkill(this)">×</button>
-                            </span>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
-
-                <!-- ADD SKILL -->
-                <div class="skill-input">
-                    <input type="text" id="skillInput" placeholder="Add a skill">
-                    <button onclick="addSkill()">Add</button>
-                </div>
-
-                <!-- HIDDEN FORM -->
-                <form method="POST" action="save_profile.php">
-                    <input type="hidden" name="skills" id="skillsHidden">
-                    <button type="submit">Save Skills</button>
-                </form>
+            <div class="tags" id="skillsContainer">
+                <?php foreach($skills as $skill): ?>
+                    <?php if(trim($skill) != ""): ?>
+                        <span class="tag">
+                            <?php echo trim($skill); ?>
+                            <button class="remove-btn" onclick="removeSkill(this)">×</button>
+                        </span>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
 
-        <!-- PROFILE FORM -->
+            <div class="skill-input">
+                <input type="text" id="skillInput" placeholder="Add a skill">
+                <button onclick="addSkill()">Add</button>
+            </div>
+
+            <form method="POST" action="save_profile.php">
+                <input type="hidden" name="skills" id="skillsHidden">
+                <button type="submit">Save Skills</button>
+            </form>
+        </div>
+
+        <!-- PROFILE -->
         <div class="card">
             <h3>Update Profile</h3>
 
             <form method="POST" action="save_profile.php">
-
-                <!-- INTERESTS -->
-                <textarea name="interests" placeholder="🎯 Your Interests"></textarea>
-
-                <!-- GPA -->
-                <input type="number" step="0.01" name="gpa" placeholder="📊 GPA">
-
-                <!-- SAVE -->
+                <textarea name="interests" placeholder="🎯 Your Interests"><?php echo $user['interests'] ?? ''; ?></textarea>
+                <input type="number" step="0.01" name="gpa" placeholder="📊 GPA" value="<?php echo $user['gpa'] ?? ''; ?>">
                 <button type="submit">Save Profile</button>
-
             </form>
         </div>
 
@@ -136,8 +140,6 @@ $skills = explode(',', $user['skills']);
 
     </div>
 </div>
-
-
 
 <script>
 let skills = <?php echo json_encode(array_values(array_filter(array_map('trim', $skills)))); ?>;
@@ -176,6 +178,5 @@ function removeSkill(btn) {
     updateHiddenInput();
 }
 
-// 🔥 VERY IMPORTANT
 updateHiddenInput();
 </script>
