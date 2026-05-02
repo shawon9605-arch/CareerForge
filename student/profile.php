@@ -30,6 +30,7 @@ if (!empty($user['skills'])) {
         <a href="dashboard.php">Dashboard</a>
         <a href="profile.php">Profile</a>
         <a href="jobs.php">Jobs</a>
+        <a href="community.php">Community</a>
     </div>
 
     <!-- MAIN -->
