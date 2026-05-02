@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>CareerForge</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 
     <style>
         body {
@@ -12,7 +12,7 @@
             color: white;
         }
 
-
+        /* NAVBAR */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -42,7 +42,7 @@
             color: #ff7a00;
         }
 
-
+        /* HERO */
         .center-box {
             height: 100vh;
             display: flex;
@@ -55,7 +55,7 @@
             font-size: 42px;
         }
 
-        .support {
+        .live {
             color: #ff7a00;
             border-bottom: 2px solid #ff7a00;
             text-decoration: none;
@@ -73,7 +73,7 @@
             font-size: 14px;
         }
 
-
+        /* NEW SECTION */
         .features {
             padding: 80px 60px;
             text-align: center;
@@ -110,7 +110,7 @@
             margin-bottom: 15px;
         }
 
-
+        /* STATS */
         .stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -143,7 +143,7 @@
 
 <body>
 
-
+<!-- NAVBAR -->
 <div class="navbar">
     <div class="logo">🚀 CareerForge</div>
     <div class="nav-buttons">
@@ -152,13 +152,12 @@
     </div>
 </div>
 
-
+<!-- HERO -->
 <div class="center-box">
     <div style="max-width:700px; width:100%;">
 
         <h1>
-            Learn Skills in Bangladesh —
-            <a href="#" class="support">Support●</a>
+            Learn Skills in Bangladesh
         </h1>
 
         <div class="hero-image">
@@ -174,7 +173,7 @@
     </div>
 </div>
 
-
+<!-- 🔥 NEW FEATURES SECTION -->
 <div class="features">
 
     <h2>What You Get in the Live Course</h2>
@@ -208,12 +207,12 @@
 
         <div class="feature-box">
             <img src="https://img.icons8.com/color/96/puzzle.png"/>
-            <p>24/7 days support</p>
+            <p>3-day support class</p>
         </div>
 
     </div>
 
-
+    <!-- STATS -->
     <div class="stats">
 
         <div class="stat-box">
@@ -241,4 +240,105 @@
 </div>
 
 </body>
+
+<!-- CHATBOT WIDGET -->
+<div class="chatbot">
+    <button class="chatbot-fab" id="chatbotFab" type="button" aria-label="Open chatbot">💬</button>
+
+    <div class="chatbot-panel" id="chatbotPanel" aria-hidden="true">
+        <div class="chatbot-header">
+            <div>
+                <strong>CareerForge Assistant</strong>
+                <div class="chatbot-subtitle">Ask about courses, CV, jobs</div>
+            </div>
+            <button type="button" class="chatbot-close" id="chatbotClose" aria-label="Close chatbot">×</button>
+        </div>
+
+        <div class="chatbot-messages" id="chatbotMessages"></div>
+
+        <form class="chatbot-input" id="chatbotForm">
+            <input id="chatbotText" type="text" placeholder="Type a message..." autocomplete="off" />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+<script>
+const fab = document.getElementById('chatbotFab');
+const panel = document.getElementById('chatbotPanel');
+const closeBtn = document.getElementById('chatbotClose');
+const messages = document.getElementById('chatbotMessages');
+const form = document.getElementById('chatbotForm');
+const input = document.getElementById('chatbotText');
+
+function setOpen(isOpen) {
+    panel.classList.toggle('open', isOpen);
+    panel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    if (isOpen) {
+        setTimeout(() => input.focus(), 50);
+    }
+}
+
+function addMessage(role, text) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'chatbot-msg ' + (role === 'user' ? 'user' : 'bot');
+
+    const bubble = document.createElement('div');
+    bubble.className = 'chatbot-bubble';
+    bubble.textContent = text;
+
+    wrapper.appendChild(bubble);
+    messages.appendChild(wrapper);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function botReply(userText) {
+    const t = (userText || '').toLowerCase();
+
+    if (t.includes('login') || t.includes('sign in')) {
+        return 'You can login from here: student/login.php (button on top right).';
+    }
+    if (t.includes('register') || t.includes('signup') || t.includes('sign up')) {
+        return 'To create an account, click “Start Learning” or go to student/register.php.';
+    }
+    if (t.includes('cv') || t.includes('resume')) {
+        return 'After login: Dashboard → Profile → View CV / Download CV.';
+    }
+    if (t.includes('job')) {
+        return 'After login you can explore Jobs from the sidebar: Jobs page.';
+    }
+    if (t.includes('skill')) {
+        return 'Tell me what skill you want (e.g., PHP, JavaScript, React) and I will suggest a learning path.';
+    }
+    if (t.includes('react')) {
+        return 'React path: HTML/CSS → JavaScript fundamentals → DOM → React basics → Projects.';
+    }
+    if (t.includes('php')) {
+        return 'PHP path: PHP basics → Forms/Session → MySQL (CRUD) → Build 1–2 projects.';
+    }
+
+    return 'Hi! Ask me about Login, Register, CV, Jobs, or Skills.';
+}
+
+fab.addEventListener('click', () => {
+    const isOpen = panel.classList.contains('open');
+    setOpen(!isOpen);
+    if (!isOpen && messages.children.length === 0) {
+        addMessage('bot', 'Hello! How can I help you today?');
+    }
+});
+
+closeBtn.addEventListener('click', () => setOpen(false));
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+    addMessage('user', text);
+    input.value = '';
+
+    const reply = botReply(text);
+    setTimeout(() => addMessage('bot', reply), 250);
+});
+</script>
 </html>
