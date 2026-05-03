@@ -9,3 +9,11 @@ interests TEXT,
 gpa FLOAT,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+ALTER TABLE students 
+ADD education TEXT,
+ADD experience TEXT,
+ADD projects TEXT;
+
+ALTER TABLE students MODIFY projects TEXT;
