@@ -47,8 +47,8 @@ $user = $conn->query("SELECT * FROM students WHERE email='$email'")->fetch_assoc
     <div class="sidebar">
         <h2>🔥 CareerForge</h2>
         <a href="dashboard.php">Dashboard</a>
-        <a href="jobs.php">Jobs</a>
         <a href="profile.php">Profile</a>
+        <a href="jobs.php">Jobs</a>
         <a href="community.php">Community</a>
     </div>
 
