@@ -214,50 +214,41 @@ function removeSkill(skill) {
 }
 
 function saveProfile() {
-    const name = document.getElementById("nameInput").value;
-    const gpa = document.getElementById("gpaInput").value;
-    const interests = document.getElementById("interestInput").value;
-    const education = document.getElementById("educationInput").value;
-    const experience = document.getElementById("experienceInput").value;
-    const projects = document.getElementById("projectsInput").value;
 
-    const imageFile = document.getElementById("profileImageInput").files[0];
+    let formData = new FormData();
 
-    const body = new FormData();
-    body.set("ajax", "1");
-    body.set("name", name);
-    body.set("gpa", gpa);
-    body.set("interests", interests);
-    body.set("education", education);
-    body.set("experience", experience);
-    body.set("projects", projects);
-    body.set("skills", skills.join(','));
+    formData.append("name", document.getElementById("nameInput").value);
+    formData.append("gpa", document.getElementById("gpaInput").value);
+    formData.append("interests", document.getElementById("interestInput").value);
+    formData.append("education", document.getElementById("educationInput").value);
+    formData.append("experience", document.getElementById("experienceInput").value);
 
-    if (imageFile) {
-        body.set("profile_image", imageFile);
+    formData.append("skills", skills.join(','));
+
+    formData.append("projects", JSON.stringify(projects));
+
+    // IMAGE
+    let imageInput = document.getElementById("profileImageInput");
+
+    if (imageInput.files.length > 0) {
+        formData.append("profile_image", imageInput.files[0]);
     }
 
     fetch("save_profile.php", {
         method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "X-Requested-With": "XMLHttpRequest"
-        },
-        body
+        body: formData
     })
-    .then(async (res) => {
-        const data = await res.json().catch(() => null);
-        if (!res.ok || !data) {
-            throw new Error((data && data.message) ? data.message : "Failed to update profile");
-        }
-        return data;
-    })
-    .then(() => {
-        alert("Profile updated!");
+    .then(res => res.text())
+    .then(data => {
+        console.log(data);
+
+        alert("✅ Profile updated successfully!");
+
         location.reload();
     })
-    .catch((err) => {
-        alert(err.message || "Failed to update profile");
+    .catch(err => {
+        console.error(err);
+        alert("Error saving profile");
     });
 }
 
