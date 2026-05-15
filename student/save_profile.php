@@ -68,6 +68,30 @@ if (isset($_POST['interests'])) {
    $types .= 's';
 }
 
+/* EDUCATION */
+if (isset($_POST['education'])) {
+   $education = trim((string)($_POST['education'] ?? ''));
+   $setParts[] = 'education = ?';
+   $params[] = $education;
+   $types .= 's';
+}
+
+/* EXPERIENCE */
+if (isset($_POST['experience'])) {
+   $experience = trim((string)($_POST['experience'] ?? ''));
+   $setParts[] = 'experience = ?';
+   $params[] = $experience;
+   $types .= 's';
+}
+
+/* PROJECTS */
+if (isset($_POST['projects'])) {
+   $projects = trim((string)($_POST['projects'] ?? '[]'));
+   $setParts[] = 'projects = ?';
+   $params[] = $projects;
+   $types .= 's';
+}
+
 /* GPA */
 if (array_key_exists('gpa', $_POST)) {
    $gpaRaw = trim((string)$_POST['gpa']);
@@ -82,6 +106,15 @@ if (array_key_exists('gpa', $_POST)) {
 }
 
 /* PROFILE IMAGE */
+
+$email = $_SESSION['email'];
+
+$userResult = $conn->query("SELECT image FROM students WHERE email='$email'");
+
+$user = $userResult->fetch_assoc();
+
+/* KEEP OLD IMAGE IF NO NEW IMAGE */
+$relativePath = $user['image'] ?? '';
 if (isset($_FILES['profile_image']) && isset($_FILES['profile_image']['error'])) {
    if ($_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
       $tmpName = $_FILES['profile_image']['tmp_name'];
@@ -198,7 +231,8 @@ if (!empty($setParts)) {
 
    $types .= 's';
    $params[] = $email;
-   $stmt->bind_param("sssssssss",
+   $stmt->bind_param(
+                        "sssssssss",
                         $name,
                         $gpa,
                         $interests,
@@ -206,8 +240,9 @@ if (!empty($setParts)) {
                         $experience,
                         $skills,
                         $projects,
-                        $imagePath,
-                        $email);
+                        $relativePath,
+                        $email
+                     );
    $stmt->execute();
    $stmt->close();
 }

@@ -321,7 +321,6 @@ function addProject() {
     });
 
     renderProjects();
-    updateProjectsInput();
 
     document.getElementById("projTitle").value = "";
     document.getElementById("projDesc").value = "";
@@ -331,22 +330,15 @@ function addProject() {
 function removeProject(index) {
     projects.splice(index, 1);
     renderProjects();
-    updateProjectsInput();
-}
-
-function updateProjectsInput() {
-    document.getElementById("projectsHidden").value = JSON.stringify(projects);
 }
 
 function rateProject(index, value) {
     projects[index].rating = value;
     renderProjects();
-    updateProjectsInput();
 }
 
 function increaseView(index) {
     projects[index].views += 1;
-    updateProjectsInput();
 }
 // INIT
 renderProjects();
