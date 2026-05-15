@@ -174,7 +174,17 @@ if (isset($_FILES['profile_image']) && isset($_FILES['profile_image']['error']))
 }
 
 if (!empty($setParts)) {
-   $sql = 'UPDATE students SET ' . implode(', ', $setParts) . ' WHERE email = ?';
+   $sql = 'UPDATE students 
+            SET 
+            name=?, 
+            gpa=?, 
+            interests=?, 
+            education=?, 
+            experience=?, 
+            skills=?, 
+            projects=?, 
+            image=? 
+            WHERE email=?';
    $stmt = $conn->prepare($sql);
    if (!$stmt) {
       if ($isAjax) {
@@ -188,7 +198,16 @@ if (!empty($setParts)) {
 
    $types .= 's';
    $params[] = $email;
-   $stmt->bind_param($types, ...$params);
+   $stmt->bind_param("sssssssss",
+                        $name,
+                        $gpa,
+                        $interests,
+                        $education,
+                        $experience,
+                        $skills,
+                        $projects,
+                        $imagePath,
+                        $email);
    $stmt->execute();
    $stmt->close();
 }
