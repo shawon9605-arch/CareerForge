@@ -1,20 +1,75 @@
 # CareerForge
-CareerForge is a job readiness platform designed to help undergraduate students bridge the gap between their current skill set and industry requirements. The system provides a centralized environment where students can manage their profiles, showcase their skills, and receive personalized job recommendations based on their interests and competencies.
 
-The platform enables users to dynamically add and manage skills through an interactive interface, while also analyzing these skills to suggest suitable job roles. It incorporates a smart matching mechanism that calculates job compatibility by comparing user skills with job requirements, helping students identify opportunities that align with their strengths.
+CareerForge is a student job-readiness platform (profile + skills + dashboard + community).
 
-In addition to job recommendations, CareerForge includes a Career Gap Analyzer that highlights missing skills and provides suggestions for improvement. This feature guides students toward becoming more competitive in the job market. The system also offers a Smart CV Generator, which automatically creates a professional CV using the user’s profile data, including skills, GPA, and interests.
+## Project Location
 
-To further enhance user engagement, the platform introduces a Community and Mentorship feature, allowing students to connect with experienced individuals who have gone through real interview processes. This provides valuable insights and practical guidance for career preparation.
+The main Laravel app lives here:
 
-Built with a modern UI and interactive design, CareerForge ensures a smooth and user-friendly experience. Overall, the project aims to empower students by transforming raw academic profiles into industry-ready portfolios, making the transition from education to employment more structured and efficient.
+```
+CareerForge/careerforge-laravel/
+```
 
-## Development (Laravel)
+## Prerequisites
 
-- Main Laravel app: `CareerForge/careerforge-laravel/`
-- VS Code tasks (recommended):
-	- `careerforge-laravel: artisan serve`
-	- `careerforge-laravel: artisan test`
-	- `careerforge-laravel: npm dev`
+- PHP 8.1+ + Composer
+- Node.js + npm
+- MySQL (XAMPP is fine)
 
-> Note: The `myapp/` folder has been removed; use `CareerForge/careerforge-laravel/` for all Laravel development.
+## Quick Start
+
+From the repo root:
+
+```bash
+cd CareerForge/careerforge-laravel
+composer install
+npm install
+copy .env.example .env
+php artisan key:generate
+```
+
+### Database
+
+Edit `CareerForge/careerforge-laravel/.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=careerforge
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Run migrations:
+
+```bash
+php artisan migrate
+```
+
+## Run
+
+Terminal 1:
+
+```bash
+cd CareerForge/careerforge-laravel
+php artisan serve --host=127.0.0.1 --port=8000
+```
+
+Terminal 2 (optional, for Vite assets):
+
+```bash
+cd CareerForge/careerforge-laravel
+npm run dev
+```
+
+Open:
+
+- http://127.0.0.1:8000/student/login
+- http://127.0.0.1:8000/student/register
+- http://127.0.0.1:8000/student/community
+
+## Notes
+
+- Community posts/comments are stored in the database (`posts`, `comments`).
+- The `student/` folder in the repo root is the old PHP version (don’t use it when running Laravel).
