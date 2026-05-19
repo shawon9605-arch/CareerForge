@@ -8,3 +8,13 @@ In addition to job recommendations, CareerForge includes a Career Gap Analyzer t
 To further enhance user engagement, the platform introduces a Community and Mentorship feature, allowing students to connect with experienced individuals who have gone through real interview processes. This provides valuable insights and practical guidance for career preparation.
 
 Built with a modern UI and interactive design, CareerForge ensures a smooth and user-friendly experience. Overall, the project aims to empower students by transforming raw academic profiles into industry-ready portfolios, making the transition from education to employment more structured and efficient.
+
+## Development (Laravel)
+
+- Main Laravel app: `CareerForge/careerforge-laravel/`
+- VS Code tasks (recommended):
+	- `careerforge-laravel: artisan serve`
+	- `careerforge-laravel: artisan test`
+	- `careerforge-laravel: npm dev`
+
+> Note: The `myapp/` folder has been removed; use `CareerForge/careerforge-laravel/` for all Laravel development.
