@@ -29,6 +29,8 @@ Route::prefix('student')->name('student.')->group(function () {
 	Route::get('/jobs', [JobsController::class, 'show'])->name('jobs');
 	Route::get('/community', [CommunityController::class, 'show'])->name('community');
 	Route::post('/post', [PostController::class, 'store'])->name('post.store');
+	Route::post('/post/{postId}/update', [PostController::class, 'update'])->name('post.update');
+	Route::post('/post/{postId}/delete', [PostController::class, 'destroy'])->name('post.delete');
 	Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 	Route::get('/cv', [CvController::class, 'show'])->name('cv');
 	Route::get('/view-profile', [ViewProfileController::class, 'show'])->name('view_profile');

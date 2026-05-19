@@ -57,11 +57,12 @@
                 <div class="community-feed">
                     @forelse($posts as $post)
                         <?php
-                            $postEmail = (string)($post->email ?? '');
-                            $postAuthor = $postEmail !== '' ? ($authorsByEmail[$postEmail] ?? null) : null;
+                            $postEmailRaw = (string)($post->email ?? '');
+                            $postEmailKey = strtolower(trim($postEmailRaw));
+                            $postAuthor = $postEmailKey !== '' ? ($authorsByEmail[$postEmailKey] ?? null) : null;
                             $postAuthorName = $postAuthor && !empty($postAuthor['name'])
                                 ? $postAuthor['name']
-                                : ($postEmail !== '' ? $postEmail : 'Anonymous');
+                                : ($postEmailRaw !== '' ? trim($postEmailRaw) : 'Anonymous');
                             $postAuthorAvatar = $postAuthor && !empty($postAuthor['imageSrc'])
                                 ? $postAuthor['imageSrc']
                                 : asset('assets/user.png');
@@ -69,6 +70,12 @@
                             $postTime = !empty($post->created_at)
                                 ? \Illuminate\Support\Carbon::parse($post->created_at)->diffForHumans()
                                 : '';
+
+                            $userEmailKey = $user ? strtolower(trim((string)($user->email ?? ''))) : '';
+                            $isMine = $loggedIn && $userEmailKey !== '' && ($userEmailKey === $postEmailKey);
+
+                            $editingId = (int) request()->query('edit', 0);
+                            $isEditing = $isMine && ($editingId === (int) $post->id);
                         ?>
 
                         <div class="card post-card">
@@ -81,10 +88,32 @@
                                     </div>
                                 </div>
 
-                                <span class="post-meta">#{{ (int)$post->id }}</span>
+                                <div class="post-actions">
+                                    <span class="post-meta">#{{ (int)$post->id }}</span>
+
+                                    @if($isMine)
+                                        <a class="post-action-link" href="{{ route('student.community', ['edit' => (int)$post->id]) }}">Edit</a>
+
+                                        <form method="POST" action="{{ route('student.post.delete', ['postId' => (int)$post->id]) }}" style="display:inline;">
+                                            @csrf
+                                            <button type="submit" class="post-action-btn" onclick="return confirm('Delete this post?')">Delete</button>
+                                        </form>
+                                    @endif
+                                </div>
                             </div>
 
-                            <p class="post-content">{{ (string)($post->content ?? '') }}</p>
+                            @if($isEditing)
+                                <form method="POST" action="{{ route('student.post.update', ['postId' => (int)$post->id]) }}" class="post-edit-form">
+                                    @csrf
+                                    <textarea name="content">{{ old('content', (string)($post->content ?? '')) }}</textarea>
+                                    <div class="post-edit-actions">
+                                        <button type="submit">Save</button>
+                                        <a class="post-action-link" href="{{ route('student.community') }}">Cancel</a>
+                                    </div>
+                                </form>
+                            @else
+                                <p class="post-content">{{ (string)($post->content ?? '') }}</p>
+                            @endif
 
                             <div class="comments">
                                 @if(empty($postComments))
@@ -92,9 +121,10 @@
                                 @else
                                     @foreach($postComments as $c)
                                         <?php
-                                            $cEmail = (string)($c->email ?? '');
-                                            $cAuthor = $cEmail !== '' ? ($authorsByEmail[$cEmail] ?? null) : null;
-                                            $cName = $cAuthor && !empty($cAuthor['name']) ? $cAuthor['name'] : ($cEmail !== '' ? $cEmail : 'Anonymous');
+                                            $cEmailRaw = (string)($c->email ?? '');
+                                            $cEmailKey = strtolower(trim($cEmailRaw));
+                                            $cAuthor = $cEmailKey !== '' ? ($authorsByEmail[$cEmailKey] ?? null) : null;
+                                            $cName = $cAuthor && !empty($cAuthor['name']) ? $cAuthor['name'] : ($cEmailRaw !== '' ? trim($cEmailRaw) : 'Anonymous');
                                             $cAvatar = $cAuthor && !empty($cAuthor['imageSrc']) ? $cAuthor['imageSrc'] : asset('assets/user.png');
                                             $cTime = !empty($c->created_at)
                                                 ? \Illuminate\Support\Carbon::parse($c->created_at)->diffForHumans()
@@ -120,8 +150,8 @@
                             <form method="POST" action="{{ route('student.comment.store') }}" class="comment-form">
                                 @csrf
                                 <input type="hidden" name="post_id" value="{{ (int)$post->id }}">
-                                <input type="text" name="comment" placeholder="Write a comment..." @if(!$loggedIn) disabled @endif>
-                                <button type="submit" @if(!$loggedIn) disabled @endif>Comment</button>
+                                <input type="text" name="comment" placeholder="Write a comment..." @if(!$loggedIn || $isEditing) disabled @endif>
+                                <button type="submit" @if(!$loggedIn || $isEditing) disabled @endif>Comment</button>
                             </form>
                         </div>
                     @empty

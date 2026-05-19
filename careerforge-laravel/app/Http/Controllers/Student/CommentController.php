@@ -10,7 +10,7 @@ class CommentController extends Controller
 {
     public function store(Request $request)
     {
-        $email = (string) $request->session()->get('email', '');
+        $email = strtolower(trim((string) $request->session()->get('email', '')));
 
         if ($email === '') {
             return redirect()->route('student.login');

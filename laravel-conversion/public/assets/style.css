@@ -292,6 +292,43 @@ form button {
     gap: 10px;
 }
 
+.community-page .post-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.community-page .post-action-link {
+    color: #ff7a00;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.community-page .post-action-link:hover {
+    text-decoration: underline;
+}
+
+.community-page .post-action-btn {
+    width: auto;
+    padding: 8px 10px;
+    font-size: 12px;
+}
+
+.community-page .post-edit-form textarea {
+    min-height: 90px;
+}
+
+.community-page .post-edit-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.community-page .post-edit-actions button {
+    width: auto;
+    padding: 10px 16px;
+}
+
 .community-page .post-meta {
     font-size: 12px;
     color: #cbd5f5;

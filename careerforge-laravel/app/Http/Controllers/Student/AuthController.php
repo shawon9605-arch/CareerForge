@@ -17,13 +17,13 @@ class AuthController extends Controller
 
     public function login(Request $request): RedirectResponse|View
     {
-        $email = (string) $request->input('email', '');
+        $email = strtolower(trim((string) $request->input('email', '')));
         $password = (string) $request->input('password', '');
 
         $hashed = md5($password);
 
         $user = DB::table('students')
-            ->where('email', $email)
+            ->whereRaw('LOWER(TRIM(email)) = ?', [$email])
             ->where('password', $hashed)
             ->first();
 
@@ -45,7 +45,7 @@ class AuthController extends Controller
     public function register(Request $request): View
     {
         $name = (string) $request->input('name', '');
-        $email = (string) $request->input('email', '');
+        $email = strtolower(trim((string) $request->input('email', '')));
         $password = (string) $request->input('password', '');
 
         DB::table('students')->insert([

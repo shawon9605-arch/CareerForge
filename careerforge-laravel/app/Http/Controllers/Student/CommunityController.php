@@ -10,11 +10,15 @@ class CommunityController extends Controller
 {
     public function show(Request $request)
     {
-        $email = (string) $request->session()->get('email', '');
+        $normalizeEmail = static fn ($value): string => strtolower(trim((string) $value));
+
+        $email = $normalizeEmail($request->session()->get('email', ''));
         $user = null;
 
         if ($email !== '') {
-            $user = DB::table('students')->where('email', $email)->first();
+            $user = DB::table('students')
+                ->whereRaw('LOWER(TRIM(email)) = ?', [$email])
+                ->first();
         }
 
         $posts = DB::table('posts')
@@ -41,15 +45,15 @@ class CommunityController extends Controller
                 $commentsByPost[$postId][] = $comment;
 
                 if (!empty($comment->email)) {
-                    $commentEmails[] = (string) $comment->email;
+                    $commentEmails[] = $normalizeEmail($comment->email);
                 }
             }
         }
 
         $postEmails = $posts
             ->pluck('email')
-            ->filter(fn ($e) => !empty($e))
-            ->map(fn ($e) => (string) $e)
+            ->map($normalizeEmail)
+            ->filter(fn ($e) => $e !== '')
             ->all();
 
         $emails = array_values(array_unique(array_filter(array_merge($postEmails, $commentEmails))));
@@ -58,7 +62,7 @@ class CommunityController extends Controller
         if (!empty($emails)) {
             $authors = DB::table('students')
                 ->select(['email', 'name', 'image'])
-                ->whereIn('email', $emails)
+                ->whereIn(DB::raw('LOWER(TRIM(email))'), $emails)
                 ->get();
 
             foreach ($authors as $author) {
@@ -72,7 +76,7 @@ class CommunityController extends Controller
                     }
                 }
 
-                $authorsByEmail[(string) $author->email] = [
+                $authorsByEmail[$normalizeEmail($author->email)] = [
                     'name' => (string) ($author->name ?? ''),
                     'imageSrc' => $imageSrc,
                 ];
