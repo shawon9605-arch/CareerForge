@@ -1,0 +1,76 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class ProfileController extends Controller
+{
+    public function index()
+    {
+        $user = DB::table('students')->first();
+
+        $skills = [];
+
+        if (!empty($user->skills)) {
+            $skills = explode(',', $user->skills);
+        }
+
+        $imageSrc = asset('assets/user.png');
+
+        if (!empty($user->image)) {
+            $imageSrc = asset($user->image);
+        }
+
+        return view('profile', [
+            'user' => $user,
+            'skills' => $skills,
+            'imageSrc' => $imageSrc
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $user = DB::table('students')->first();
+
+        $imagePath = $user->image;
+
+        // IMAGE UPLOAD
+        if ($request->hasFile('profile_image')) {
+
+            $file = $request->file('profile_image');
+
+            $fileName =
+            time() . '_' .
+            $file->getClientOriginalName();
+
+            $file->move(
+                public_path('uploads/profile_images'),
+                $fileName
+            );
+
+            $imagePath =
+            'uploads/profile_images/' . $fileName;
+        }
+
+        DB::table('students')
+            ->where('id', $user->id)
+            ->update([
+
+                'name' => $request->name,
+                'gpa' => $request->gpa,
+                'interests' => $request->interests,
+                'education' => $request->education,
+                'experience' => $request->experience,
+                'skills' => $request->skills,
+                'projects' => $request->projects,
+                'image' => $imagePath
+
+            ]);
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+}
