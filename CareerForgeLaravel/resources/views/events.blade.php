@@ -62,7 +62,6 @@
         }
 
         input,
-        select,
         textarea {
 
             width: 100%;
@@ -140,6 +139,78 @@
             );
 
         }
+        select {
+
+        width: 100%;
+
+        padding: 16px 20px;
+
+        border-radius: 18px;
+
+        border:
+        1px solid rgba(255,255,255,0.08);
+
+        background:
+        rgba(255,255,255,0.08);
+
+        color: white;
+
+        font-size: 15px;
+
+        outline: none;
+
+        cursor: pointer;
+
+        appearance: none;
+
+        -webkit-appearance: none;
+
+        -moz-appearance: none;
+
+        transition: 0.3s ease;
+
+        background-image:
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            white 50%
+        ),
+        linear-gradient(
+            135deg,
+            white 50%,
+            transparent 50%
+        );
+
+        background-position:
+        calc(100% - 20px) calc(50% - 3px),
+        calc(100% - 14px) calc(50% - 3px);
+
+        background-size:
+        6px 6px,
+        6px 6px;
+
+        background-repeat: no-repeat;
+
+    }
+
+    select:focus {
+
+        border-color: #7c3aed;
+
+        box-shadow:
+        0 0 0 4px rgba(124,58,237,0.2);
+
+    }
+
+    select option {
+
+        background: #1e1b4b;
+
+        color: white;
+
+        padding: 15px;
+
+    }
 
     </style>
 
