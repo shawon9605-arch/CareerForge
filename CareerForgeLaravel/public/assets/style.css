@@ -907,3 +907,93 @@ textarea {
     0 12px 25px rgba(239,68,68,0.35);
 
 }
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+.view-all {
+
+    color: #a78bfa;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+}
+
+.event-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background:
+    rgba(255,255,255,0.05);
+
+    margin-bottom: 15px;
+
+    transition: 0.3s;
+
+}
+
+.event-item:hover {
+
+    transform: translateY(-2px);
+
+    background:
+    rgba(255,255,255,0.08);
+
+}
+
+.event-badge {
+
+    min-width: 90px;
+
+    text-align: center;
+
+    padding: 10px;
+
+    border-radius: 14px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #4f46e5,
+        #7c3aed
+    );
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+.event-content h4 {
+
+    margin-bottom: 5px;
+
+}
+
+.event-content p {
+
+    opacity: 0.7;
+
+    font-size: 14px;
+
+}

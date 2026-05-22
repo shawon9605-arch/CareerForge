@@ -92,6 +92,71 @@
 
         </div>
 
+        <!-- EVENTS -->
+
+        <div class="card">
+
+            <div class="section-header">
+
+                <h3>
+
+                    📅 Upcoming Events
+
+                </h3>
+
+                <a href="/events"
+                class="view-all">
+
+                    View All
+
+                </a>
+
+            </div>
+
+            @if(count($events) > 0)
+
+                @foreach($events as $event)
+
+                    <div class="event-item">
+
+                        <div class="event-badge">
+
+                            {{ $event->type }}
+
+                        </div>
+
+                        <div class="event-content">
+
+                            <h4>
+
+                                {{ $event->title }}
+
+                            </h4>
+
+                            <p>
+
+                                📅 {{ $event->event_date }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                @endforeach
+
+            @else
+
+                <p style="opacity:0.7;">
+
+                    No upcoming events
+
+                </p>
+
+            @endif
+
+        </div>
+
         <!-- SKILLS -->
         <div class="card">
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -13,10 +14,10 @@ class DashboardController extends Controller
 
         }
 
-        // LOGGED USER
+        // CURRENT USER
         $user = session('user');
 
-        // SKILLS ARRAY
+        // SKILLS
         $skills = [];
 
         if (!empty($user->skills)) {
@@ -26,11 +27,29 @@ class DashboardController extends Controller
 
         }
 
+        // USER EVENTS
+        $events = DB::table('events')
+
+            ->where(
+                'student_id',
+                $user->id
+            )
+
+            ->orderBy(
+                'event_date',
+                'asc'
+            )
+
+            ->limit(5)
+
+            ->get();
+
         return view(
             'dashboard',
             compact(
                 'user',
-                'skills'
+                'skills',
+                'events'
             )
         );
     }

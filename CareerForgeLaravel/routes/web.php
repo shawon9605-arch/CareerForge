@@ -9,6 +9,7 @@ use App\Http\Controllers\JobsController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\CVController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,6 +123,21 @@ Route::middleware([])->group(function () {
 
         QuizController::class,
         'submit'
+
+    ]);
+
+    // EVENTS
+    Route::get('/events', [
+
+        EventController::class,
+        'index'
+
+    ]);
+
+    Route::post('/events/add', [
+
+        EventController::class,
+        'store'
 
     ]);
 
