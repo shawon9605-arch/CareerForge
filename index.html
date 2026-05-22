@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perturb-seq Spatial AI Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+  <div class="min-h-screen p-6">
+    <div class="max-w-7xl mx-auto space-y-6">
+
+      <!-- Header -->
+      <div class="bg-white rounded-3xl shadow-lg p-6 flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold">AI-Driven Spatial Analysis of Perturb-seq Data</h1>
+          <p class="text-slate-500 mt-2">Perturb-seq + Spatial Transcriptomics + AI Prediction</p>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-2xl font-semibold">
+            AI Status: Active
+          </div>
+          <div class="w-12 h-12 bg-slate-300 rounded-full"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-12 gap-6">
+
+        <!-- Sidebar -->
+        <div class="col-span-3 bg-white rounded-3xl shadow-lg p-6">
+          <h2 class="text-2xl font-bold mb-6">Navigation</h2>
+
+          <div class="space-y-3">
+            <div class="p-3 rounded-2xl bg-slate-100">Dashboard</div>
+            <div class="p-3 rounded-2xl hover:bg-slate-100 cursor-pointer">Upload Dataset</div>
+            <div class="p-3 rounded-2xl hover:bg-slate-100 cursor-pointer">Perturbation Analysis</div>
+            <div class="p-3 rounded-2xl hover:bg-slate-100 cursor-pointer">Spatial Mapping</div>
+            <div class="p-3 rounded-2xl hover:bg-slate-100 cursor-pointer">AI Prediction</div>
+            <div class="p-3 rounded-2xl hover:bg-slate-100 cursor-pointer">Visualization</div>
+            <div class="p-3 rounded-2xl hover:bg-slate-100 cursor-pointer">Reports</div>
+            <div class="p-3 rounded-2xl hover:bg-slate-100 cursor-pointer">Settings</div>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-span-9 space-y-6">
+
+          <!-- Upload Section -->
+          <div class="bg-white rounded-3xl shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-6">Dataset Input</h2>
+
+            <div class="grid grid-cols-2 gap-6">
+
+              <!-- Perturb-seq -->
+              <div class="border border-slate-200 rounded-3xl p-5">
+                <h3 class="text-xl font-semibold mb-4">Perturb-seq Input</h3>
+
+                <div class="space-y-4">
+                  <div>
+                    <label class="text-sm text-slate-500">Gene Expression Matrix</label>
+                    <div class="border-2 border-dashed rounded-2xl p-5 text-center bg-slate-50 mt-1">
+                      Upload .csv / .h5ad
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="text-sm text-slate-500">Guide RNA File</label>
+                    <div class="border-2 border-dashed rounded-2xl p-5 text-center bg-slate-50 mt-1">
+                      Upload gRNA Data
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="text-sm text-slate-500">Cell Metadata</label>
+                    <div class="border-2 border-dashed rounded-2xl p-5 text-center bg-slate-50 mt-1">
+                      Upload Metadata
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Spatial -->
+              <div class="border border-slate-200 rounded-3xl p-5">
+                <h3 class="text-xl font-semibold mb-4">Spatial Transcriptomics Input</h3>
+
+                <div class="space-y-4">
+                  <div>
+                    <label class="text-sm text-slate-500">Spatial Matrix</label>
+                    <div class="border-2 border-dashed rounded-2xl p-5 text-center bg-slate-50 mt-1">
+                      Upload Spatial Data
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="text-sm text-slate-500">Tissue Image</label>
+                    <div class="border-2 border-dashed rounded-2xl p-5 text-center bg-slate-50 mt-1">
+                      Upload Tissue Slide
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="text-sm text-slate-500">Coordinate File</label>
+                    <div class="border-2 border-dashed rounded-2xl p-5 text-center bg-slate-50 mt-1">
+                      Upload Coordinates
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-4 mt-6">
+              <button class="bg-slate-900 text-white px-6 py-3 rounded-2xl font-semibold">
+                Validate Dataset
+              </button>
+
+              <button class="bg-emerald-600 text-white px-6 py-3 rounded-2xl font-semibold">
+                Start Analysis
+              </button>
+            </div>
+          </div>
+
+          <!-- Pipeline -->
+          <div class="bg-white rounded-3xl shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-6">AI Processing Pipeline</h2>
+
+            <div class="grid grid-cols-4 gap-4 text-center">
+
+              <div class="bg-blue-50 rounded-3xl p-5">
+                <div class="text-5xl mb-3">🧬</div>
+                <h3 class="font-bold">Perturb-seq</h3>
+                <p class="text-sm text-slate-500 mt-2">Gene perturbation profiles</p>
+              </div>
+
+              <div class="bg-purple-50 rounded-3xl p-5">
+                <div class="text-5xl mb-3">🧫</div>
+                <h3 class="font-bold">Spatial Data</h3>
+                <p class="text-sm text-slate-500 mt-2">Spatial tissue information</p>
+              </div>
+
+              <div class="bg-emerald-50 rounded-3xl p-5">
+                <div class="text-5xl mb-3">🤖</div>
+                <h3 class="font-bold">AI Model</h3>
+                <p class="text-sm text-slate-500 mt-2">Prediction & integration</p>
+              </div>
+
+              <div class="bg-orange-50 rounded-3xl p-5">
+                <div class="text-5xl mb-3">📍</div>
+                <h3 class="font-bold">Spatial Output</h3>
+                <p class="text-sm text-slate-500 mt-2">Predicted tumor response</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Outputs -->
+          <div class="grid grid-cols-2 gap-6">
+
+            <!-- Heatmap -->
+            <div class="bg-white rounded-3xl shadow-lg p-6">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Spatial Prediction Map</h2>
+                <div class="bg-red-100 text-red-600 px-3 py-1 rounded-xl text-sm">
+                  Live Output
+                </div>
+              </div>
+
+              <div class="h-72 rounded-3xl bg-gradient-to-br from-blue-300 via-purple-400 to-red-500 flex items-center justify-center text-white text-xl font-bold">
+                Tumor Spatial Heatmap
+              </div>
+
+              <div class="flex justify-between mt-4 text-sm text-slate-500">
+                <span>Low Response</span>
+                <span>High Response</span>
+              </div>
+            </div>
+
+            <!-- Gene Analysis -->
+            <div class="bg-white rounded-3xl shadow-lg p-6">
+              <h2 class="text-xl font-bold mb-4">Gene Response Analysis</h2>
+
+              <div class="space-y-4">
+
+                <div class="bg-slate-50 rounded-2xl p-4 flex justify-between items-center">
+                  <div>
+                    <h3 class="font-bold">MTOR</h3>
+                    <p class="text-sm text-slate-500">Upregulated</p>
+                  </div>
+                  <div class="text-lg font-bold">92%</div>
+                </div>
+
+                <div class="bg-slate-50 rounded-2xl p-4 flex justify-between items-center">
+                  <div>
+                    <h3 class="font-bold">MYC</h3>
+                    <p class="text-sm text-slate-500">Upregulated</p>
+                  </div>
+                  <div class="text-lg font-bold">87%</div>
+                </div>
+
+                <div class="bg-slate-50 rounded-2xl p-4 flex justify-between items-center">
+                  <div>
+                    <h3 class="font-bold">TP53</h3>
+                    <p class="text-sm text-slate-500">Downregulated</p>
+                  </div>
+                  <div class="text-lg font-bold">78%</div>
+                </div>
+
+                <div class="bg-slate-50 rounded-2xl p-4 flex justify-between items-center">
+                  <div>
+                    <h3 class="font-bold">EGFR</h3>
+                    <p class="text-sm text-slate-500">Upregulated</p>
+                  </div>
+                  <div class="text-lg font-bold">84%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Analytics -->
+          <div class="grid grid-cols-3 gap-6">
+
+            <div class="bg-white rounded-3xl shadow-lg p-6">
+              <h3 class="text-lg font-bold mb-3">Prediction Confidence</h3>
+              <div class="text-5xl font-bold text-emerald-600">94%</div>
+              <p class="text-sm text-slate-500 mt-2">AI model confidence score</p>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-lg p-6">
+              <h3 class="text-lg font-bold mb-3">Affected Cells</h3>
+              <div class="text-5xl font-bold text-blue-600">12K</div>
+              <p class="text-sm text-slate-500 mt-2">Perturbed cells identified</p>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-lg p-6">
+              <h3 class="text-lg font-bold mb-3">Resistance Zones</h3>
+              <div class="text-5xl font-bold text-red-600">7</div>
+              <p class="text-sm text-slate-500 mt-2">High-risk tumor regions</p>
+            </div>
+          </div>
+
+          <!-- Export -->
+          <div class="bg-white rounded-3xl shadow-lg p-6 flex justify-between items-center">
+            <div>
+              <h2 class="text-2xl font-bold">Generate Final Report</h2>
+              <p class="text-slate-500 mt-1">Export AI insights and prediction maps</p>
+            </div>
+
+            <div class="flex gap-4">
+              <button class="bg-slate-900 text-white px-6 py-3 rounded-2xl font-semibold">
+                Export PDF
+              </button>
+
+              <button class="bg-emerald-600 text-white px-6 py-3 rounded-2xl font-semibold">
+                Download Results
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
