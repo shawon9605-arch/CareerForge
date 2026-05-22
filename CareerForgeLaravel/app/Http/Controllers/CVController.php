@@ -27,7 +27,7 @@ class CVController extends Controller
     // VIEW CV
     public function view()
     {
-        $user = DB::table('students')->first();
+        $user = session('user');
 
         $profileImage =$this->getBase64Image($user->image ?? '');
 
@@ -66,7 +66,7 @@ class CVController extends Controller
     // DOWNLOAD CV
     public function download()
     {
-        $user = DB::table('students')->first();
+        $user = session('user');
 
         $profileImage =$this->getBase64Image($user->image ?? '');
 

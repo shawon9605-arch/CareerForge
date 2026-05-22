@@ -2,21 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-
 class DashboardController extends Controller
 {
     public function index()
     {
-        // TEMP USER
-        $user = DB::table('students')->first();
+        // CHECK LOGIN
+        if (!session()->has('user')) {
 
+            return redirect('/login');
+
+        }
+
+        // LOGGED USER
+        $user = session('user');
+
+        // SKILLS ARRAY
         $skills = [];
 
         if (!empty($user->skills)) {
-            $skills = explode(',', $user->skills);
+
+            $skills =
+            explode(',', $user->skills);
+
         }
 
-        return view('dashboard', compact('user', 'skills'));
+        return view(
+            'dashboard',
+            compact(
+                'user',
+                'skills'
+            )
+        );
     }
 }

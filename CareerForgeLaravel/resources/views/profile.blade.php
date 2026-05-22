@@ -43,6 +43,11 @@
         <a href="{{ url('/quizzes') }}">
             Quizzes
         </a>
+            <a href="/logout"
+             class="logout-btn">
+
+                🚪 Logout
+            </a>
 
     </div>
 

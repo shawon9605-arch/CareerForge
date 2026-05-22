@@ -18,7 +18,6 @@
 <body>
 
 <div class="dashboard">
-
     <!-- SIDEBAR -->
     <div class="sidebar">
 
@@ -43,6 +42,11 @@
         <a href="{{ url('/quizzes') }}">
             Quizzes
         </a>
+            <a href="/logout"
+             class="logout-btn">
+
+                🚪 Logout
+            </a>
 
     </div>
 

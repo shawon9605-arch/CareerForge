@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $user = DB::table('students')->first();
+        $user = session('user');
 
         $skills = [];
 
@@ -32,7 +32,8 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        $user = DB::table('students')->first();
+        // CURRENT LOGGED USER
+        $user = session('user');
 
         $imagePath = $user->image;
 
@@ -54,23 +55,60 @@ class ProfileController extends Controller
             'uploads/profile_images/' . $fileName;
         }
 
+        // UPDATE CURRENT USER
         DB::table('students')
-            ->where('id', $user->id)
+
+            ->where(
+                'id',
+                $user->id
+            )
+
             ->update([
 
-                'name' => $request->name,
-                'gpa' => $request->gpa,
-                'interests' => $request->interests,
-                'education' => $request->education,
-                'experience' => $request->experience,
-                'skills' => $request->skills,
-                'projects' => $request->projects,
-                'image' => $imagePath
+                'name' =>
+                $request->name,
+
+                'gpa' =>
+                $request->gpa,
+
+                'interests' =>
+                $request->interests,
+
+                'education' =>
+                $request->education,
+
+                'experience' =>
+                $request->experience,
+
+                'skills' =>
+                $request->skills,
+
+                'projects' =>
+                $request->projects,
+
+                'image' =>
+                $imagePath
 
             ]);
 
+        // REFRESH SESSION
+        $updatedUser = DB::table('students')
+
+            ->where(
+                'id',
+                $user->id
+            )
+
+            ->first();
+
+        session([
+            'user' => $updatedUser
+        ]);
+
         return response()->json([
+
             'success' => true
+
         ]);
     }
 }

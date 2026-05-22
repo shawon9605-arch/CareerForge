@@ -36,6 +36,11 @@
         <a href="{{ url('/quizzes') }}">
             Quizzes
         </a>
+        <a href="/logout"
+             class="logout-btn">
+
+                🚪 Logout
+        </a>
 
     </div>
 
@@ -115,11 +120,11 @@
 
             <h3>Profile Info</h3>
 
-            <p><strong>Email:</strong> {{ $user->email }}</p>
+            <p><strong>Email:</strong> {{ $user->email ?? '' }}</p>
 
-            <p><strong>GPA:</strong> {{ $user->gpa }}</p>
+            <p><strong>GPA:</strong> {{ $user->gpa ?? '' }}</p>
 
-            <p><strong>Interests:</strong> {{ $user->interests }}</p>
+            <p><strong>Interests:</strong> {{ $user->interests ?? '' }}</p>
 
         </div>
 

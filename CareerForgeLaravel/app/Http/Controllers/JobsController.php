@@ -9,7 +9,7 @@ class JobsController extends Controller
     public function index()
     {
         // GET USER
-        $user = DB::table('students')->first();
+        $user = session('user');
 
         // SAFETY CHECK
         if (!$user) {

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobsController;
@@ -9,22 +10,134 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\CVController;
 
-Route::get('/', [DashboardController::class, 'index']);
+/*
+|--------------------------------------------------------------------------
+| AUTH ROUTES
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/profile', [ProfileController::class, 'index']);
+// LOGIN PAGE
+Route::get('/login', [
 
-Route::post('/profile/update', [ProfileController::class, 'update']);
+    AuthController::class,
+    'showLogin'
 
-Route::get('/jobs', [JobsController::class, 'index']);
+]);
 
-Route::get('/community', [CommunityController::class, 'index']);
+// LOGIN FUNCTION
+Route::post('/login', [
 
-Route::get('/quizzes', [QuizController::class, 'index']);
+    AuthController::class,
+    'login'
 
-Route::get('/quiz/{id}', [QuizController::class, 'start']);
+]);
 
-Route::post('/quiz/submit/{id}', [QuizController::class, 'submit']);
+// REGISTER PAGE
+Route::get('/register', [
 
-Route::get('/cv', [CVController::class, 'view']);
+    AuthController::class,
+    'showRegister'
 
-Route::get('/cv/download', [CVController::class, 'download']);
+]);
+
+// REGISTER FUNCTION
+Route::post('/register', [
+
+    AuthController::class,
+    'register'
+
+]);
+
+// LOGOUT
+Route::get('/logout', [
+
+    AuthController::class,
+    'logout'
+
+]);
+
+/*
+|--------------------------------------------------------------------------
+| PROTECTED ROUTES
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware([])->group(function () {
+
+    // DASHBOARD
+    Route::get('/', [
+
+        DashboardController::class,
+        'index'
+
+    ]);
+
+    // PROFILE
+    Route::get('/profile', [
+
+        ProfileController::class,
+        'index'
+
+    ]);
+
+    Route::post('/profile/update', [
+
+        ProfileController::class,
+        'update'
+
+    ]);
+
+    // JOBS
+    Route::get('/jobs', [
+
+        JobsController::class,
+        'index'
+
+    ]);
+
+    // COMMUNITY
+    Route::get('/community', [
+
+        CommunityController::class,
+        'index'
+
+    ]);
+
+    // QUIZZES
+    Route::get('/quizzes', [
+
+        QuizController::class,
+        'index'
+
+    ]);
+
+    Route::get('/quiz/{id}', [
+
+        QuizController::class,
+        'start'
+
+    ]);
+
+    Route::post('/quiz/submit/{id}', [
+
+        QuizController::class,
+        'submit'
+
+    ]);
+
+    // CV
+    Route::get('/cv', [
+
+        CVController::class,
+        'view'
+
+    ]);
+
+    Route::get('/cv/download', [
+
+        CVController::class,
+        'download'
+
+    ]);
+
+});
