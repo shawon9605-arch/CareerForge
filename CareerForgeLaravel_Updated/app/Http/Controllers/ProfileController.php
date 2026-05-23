@@ -11,22 +11,37 @@ class ProfileController extends Controller
     {
         $user = session('user');
 
+        // LOGIN CHECK
+        if (!$user) {
+
+            return redirect('/login');
+
+        }
+
         $skills = [];
 
-        if (!empty($user->skills)) {
+        if (!empty($user?->skills)) {
+
             $skills = explode(',', $user->skills);
+
         }
 
         $imageSrc = asset('assets/user.png');
 
-        if (!empty($user->image)) {
+        if (!empty($user?->image)) {
+
             $imageSrc = asset($user->image);
+
         }
 
         return view('profile', [
+
             'user' => $user,
+
             'skills' => $skills,
+
             'imageSrc' => $imageSrc
+
         ]);
     }
 
@@ -35,7 +50,14 @@ class ProfileController extends Controller
         // CURRENT LOGGED USER
         $user = session('user');
 
-        $imagePath = $user->image;
+        // LOGIN CHECK
+        if (!$user) {
+
+            return redirect('/login');
+
+        }
+
+        $imagePath = $user->image ?? null;
 
         // IMAGE UPLOAD
         if ($request->hasFile('profile_image')) {
@@ -46,8 +68,23 @@ class ProfileController extends Controller
             time() . '_' .
             $file->getClientOriginalName();
 
+            $destinationPath =
+            public_path('uploads/profile_images');
+
+            // CREATE FOLDER IF NOT EXISTS
+            if (!file_exists($destinationPath)) {
+
+                mkdir(
+                    $destinationPath,
+                    0777,
+                    true
+                );
+
+            }
+
+            // MOVE FILE
             $file->move(
-                public_path('uploads/profile_images'),
+                $destinationPath,
                 $fileName
             );
 
@@ -105,10 +142,11 @@ class ProfileController extends Controller
             'user' => $updatedUser
         ]);
 
-return redirect('/profile')
-    ->with(
-        'success',
-        'Profile Updated Successfully!'
-    );
+        return redirect('/profile')
+
+            ->with(
+                'success',
+                'Profile Updated Successfully!'
+            );
     }
 }
