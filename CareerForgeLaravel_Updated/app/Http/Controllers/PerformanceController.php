@@ -37,6 +37,24 @@ class PerformanceController extends Controller
         // Overall progress
         $overallProgress = min($averageScore, 100);
 
+        // Career readiness
+        $careerReadiness = $overallProgress;
+
+        // Highest score
+        $highestScore = DB::table('quiz_results')
+            ->where('student_id', $user->id)
+            ->max('score');
+
+        // Lowest score
+        $lowestScore = DB::table('quiz_results')
+            ->where('student_id', $user->id)
+            ->min('score');
+
+        // Skill analytics
+        $strongestSkill = 'HTML';
+        $weakestSkill = 'JavaScript';
+        $recommendedSkill = 'React.js';
+
         // Latest quiz activity
         $latestQuiz = DB::table('quiz_results')
             ->where('student_id', $user->id)
@@ -48,7 +66,14 @@ class PerformanceController extends Controller
             'skills',
             'completedAssessments',
             'overallProgress',
-            'latestQuiz'
+            'latestQuiz',
+            'averageScore',
+            'highestScore',
+            'lowestScore',
+            'strongestSkill',
+            'weakestSkill',
+            'recommendedSkill',
+            'careerReadiness'
         ));
     }
 }

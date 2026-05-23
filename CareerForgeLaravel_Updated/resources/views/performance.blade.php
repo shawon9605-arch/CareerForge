@@ -33,53 +33,37 @@
         </h2>
 
         <a href="/">
-
             🏠 Dashboard
-
         </a>
 
         <a href="/profile">
-
             👤 Profile
-
         </a>
 
         <a href="/jobs">
-
             💼 Jobs
-
         </a>
 
         <a href="/community">
-
             🌍 Community
-
         </a>
 
         <a href="/quizzes">
-
             📚 Assessments
-
         </a>
 
         <a href="/performance"
            class="active">
-
             📈 Performance
-
         </a>
 
         <a href="/events">
-
             📅 Calendar
-
         </a>
 
         <a href="/logout"
            class="logout-btn">
-
             🚪 Logout
-
         </a>
 
     </div>
@@ -95,15 +79,11 @@
             <div>
 
                 <h1 class="page-title">
-
                     Performance Analysis 📈
-
                 </h1>
 
                 <p style="opacity:0.7; margin-top:-10px;">
-
                     Track your growth and learning progress
-
                 </p>
 
             </div>
@@ -118,15 +98,11 @@
                 <div>
 
                     <strong>
-
                         {{ $user->name ?? 'Student' }}
-
                     </strong>
 
                     <p style="opacity:0.6; font-size:13px; margin-top:4px;">
-
                         CareerForge User
-
                     </p>
 
                 </div>
@@ -183,23 +159,23 @@
              style="margin-bottom:30px;">
 
             <h2 style="margin-bottom:25px;">
-
                 📊 Performance Overview
-
             </h2>
 
-            <div style="display:grid;
-                        grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-                        gap:20px;">
+            <div style="
+                display:grid;
+                grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+                gap:20px;
+            ">
 
                 <div class="stat-card">
 
                     <h3>
-                        HTML
+                        Average Score
                     </h3>
 
                     <p>
-                        90% Mastery
+                        {{ $averageScore }}%
                     </p>
 
                 </div>
@@ -207,11 +183,11 @@
                 <div class="stat-card">
 
                     <h3>
-                        CSS
+                        Highest Score
                     </h3>
 
                     <p>
-                        85% Mastery
+                        {{ $highestScore }}
                     </p>
 
                 </div>
@@ -219,11 +195,11 @@
                 <div class="stat-card">
 
                     <h3>
-                        JavaScript
+                        Lowest Score
                     </h3>
 
                     <p>
-                        70% Mastery
+                        {{ $lowestScore }}
                     </p>
 
                 </div>
@@ -238,9 +214,7 @@
              style="margin-bottom:30px;">
 
             <h2 style="margin-bottom:25px;">
-
                 🚀 Recent Activity
-
             </h2>
 
             <div class="event-item">
@@ -313,14 +287,93 @@
 
         </div>
 
+        <!-- SKILL ANALYTICS -->
+
+        <div class="card"
+             style="margin-bottom:30px;">
+
+            <h2 style="margin-bottom:25px;">
+                🧠 Skill Analytics
+            </h2>
+
+            <div style="
+                display:grid;
+                grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+                gap:20px;
+            ">
+
+                <div class="stat-card">
+
+                    <h3>
+                        {{ $strongestSkill }}
+                    </h3>
+
+                    <p>
+                        Strongest Skill
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h3>
+                        {{ $weakestSkill }}
+                    </h3>
+
+                    <p>
+                        Weakest Skill
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h3>
+                        {{ $recommendedSkill }}
+                    </h3>
+
+                    <p>
+                        Recommended Learning
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h3>
+                        {{ $careerReadiness }}%
+                    </h3>
+
+                    <p>
+                        Career Readiness
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- WEEKLY PROGRESS CHART -->
+
+        <div class="card"
+             style="margin-bottom:30px;">
+
+            <h2 style="margin-bottom:25px;">
+                📈 Weekly Progress Chart
+            </h2>
+
+            <canvas id="progressChart"
+                    height="100"></canvas>
+
+        </div>
+
         <!-- GOALS -->
 
         <div class="card">
 
             <h2 style="margin-bottom:25px;">
-
                 🎯 Career Goals
-
             </h2>
 
             <div class="tags">
@@ -344,6 +397,90 @@
     </div>
 
 </div>
+
+<!-- CHART JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    const ctx = document.getElementById('progressChart');
+
+    new Chart(ctx, {
+
+        type: 'line',
+
+        data: {
+
+            labels: [
+                'Mon',
+                'Tue',
+                'Wed',
+                'Thu',
+                'Fri',
+                'Sat',
+                'Sun'
+            ],
+
+            datasets: [{
+
+                label: 'Performance Score',
+
+                data: [40, 55, 60, 70, 65, 80, 90],
+
+                borderColor: '#8b5cf6',
+
+                backgroundColor: 'rgba(139, 92, 246, 0.2)',
+
+                tension: 0.4,
+
+                fill: true
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+
+                    labels: {
+                        color: '#ffffff'
+                    }
+
+                }
+
+            },
+
+            scales: {
+
+                x: {
+
+                    ticks: {
+                        color: '#ffffff'
+                    }
+
+                },
+
+                y: {
+
+                    ticks: {
+                        color: '#ffffff'
+                    }
+
+                }
+
+            }
+
+        }
+
+    });
+
+</script>
 
 </body>
 
