@@ -36,6 +36,7 @@
             🏠 Dashboard
         </a>
 
+
         <a href="/profile">
             👤 Profile
         </a>
@@ -85,6 +86,25 @@
                 <p style="opacity:0.7; margin-top:-10px;">
                     Track your growth and learning progress
                 </p>
+                <div style="margin-top:20px;">
+
+    <a href="/download-performance-report"
+       style="
+        display:inline-block;
+        padding:10px 18px;
+        background:#8b5cf6;
+        color:white;
+        border-radius:10px;
+        text-decoration:none;
+        font-weight:600;
+        font-size:14px;
+       ">
+
+        📄 Download Report
+
+    </a>
+
+</div>
 
             </div>
 
@@ -354,6 +374,50 @@
 
         </div>
 
+        <!-- SKILL PROGRESS -->
+
+        <div class="card"
+             style="margin-bottom:30px;">
+
+            <h2 style="margin-bottom:25px;">
+                ⚡ Skill Progress
+            </h2>
+
+            <div style="margin-bottom:20px;">
+
+                <p>HTML</p>
+
+                <progress value="90"
+                          max="100"
+                          style="width:100%; height:18px;">
+                </progress>
+
+            </div>
+
+            <div style="margin-bottom:20px;">
+
+                <p>CSS</p>
+
+                <progress value="80"
+                          max="100"
+                          style="width:100%; height:18px;">
+                </progress>
+
+            </div>
+
+            <div style="margin-bottom:20px;">
+
+                <p>JavaScript</p>
+
+                <progress value="65"
+                          max="100"
+                          style="width:100%; height:18px;">
+                </progress>
+
+            </div>
+
+        </div>
+
         <!-- WEEKLY PROGRESS CHART -->
 
         <div class="card"
@@ -365,6 +429,127 @@
 
             <canvas id="progressChart"
                     height="100"></canvas>
+
+        </div>
+
+        <!-- WEEKLY REPORT -->
+
+        <div class="card"
+             style="margin-bottom:30px;">
+
+            <h2 style="margin-bottom:25px;">
+                📅 Weekly Performance Report
+            </h2>
+
+            <div style="
+                display:grid;
+                grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+                gap:20px;
+            ">
+
+                <div class="stat-card">
+
+                    <h3>
+                        {{ $weeklyQuizCount }}
+                    </h3>
+
+                    <p>
+                        Weekly Quizzes
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h3>
+                        {{ $weeklyAverage }}%
+                    </h3>
+
+                    <p>
+                        Weekly Average
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="card"
+                 style="
+                    margin-top:25px;
+                    background:rgba(139,92,246,0.1);
+                    border:1px solid rgba(139,92,246,0.4);
+                 ">
+
+                <h3 style="margin-bottom:10px;">
+                    📢 Weekly Insight
+                </h3>
+
+                <p>
+                    {{ $weeklyMessage }}
+                </p>
+
+            </div>
+
+        </div>
+        <!-- ACHIEVEMENT BADGES -->
+
+<div class="card"
+     style="margin-bottom:30px;">
+
+    <h2 style="margin-bottom:25px;">
+        🏅 Achievement Badges
+    </h2>
+
+    <div style="
+        display:flex;
+        flex-wrap:wrap;
+        gap:15px;
+    ">
+
+        @forelse($badges as $badge)
+
+            <div style="
+                padding:12px 18px;
+                border-radius:12px;
+                background:rgba(139,92,246,0.15);
+                border:1px solid rgba(139,92,246,0.4);
+                font-weight:600;
+            ">
+
+                {{ $badge }}
+
+            </div>
+
+        @empty
+
+            <p>
+                No badges earned yet.
+            </p>
+
+        @endforelse
+
+    </div>
+
+</div>
+
+        <!-- AI RECOMMENDATION -->
+
+        <div class="card"
+             style="margin-bottom:30px;">
+
+            <h2 style="margin-bottom:20px;">
+                🤖 AI Career Recommendation
+            </h2>
+
+            <p style="
+                font-size:16px;
+                line-height:1.8;
+                opacity:0.9;
+            ">
+
+                {{ $recommendation }}
+
+            </p>
 
         </div>
 
@@ -412,21 +597,13 @@
 
         data: {
 
-            labels: [
-                'Mon',
-                'Tue',
-                'Wed',
-                'Thu',
-                'Fri',
-                'Sat',
-                'Sun'
-            ],
+            labels: @json($chartLabels),
 
             datasets: [{
 
                 label: 'Performance Score',
 
-                data: [40, 55, 60, 70, 65, 80, 90],
+                data: @json($chartScores),
 
                 borderColor: '#8b5cf6',
 

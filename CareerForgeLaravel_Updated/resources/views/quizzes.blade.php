@@ -316,6 +316,12 @@
 
         </a>
 
+        <a href="/performance">
+
+               📈 Performance
+
+        </a>
+
         <a href="/events"
         class="{{ request()->is('events') ? 'active' : '' }}">
 

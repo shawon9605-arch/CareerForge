@@ -156,6 +156,21 @@ Route::middleware([])->group(function () {
         'download'
 
     ]);
-    Route::get('/performance', [PerformanceController::class, 'index']);
+
+    // PERFORMANCE
+    Route::get('/performance', [
+
+        PerformanceController::class,
+        'index'
+
+    ]);
+
+    // DOWNLOAD PERFORMANCE REPORT PDF
+    Route::get('/download-performance-report', [
+
+        PerformanceController::class,
+        'downloadPdf'
+
+    ]);
 
 });
