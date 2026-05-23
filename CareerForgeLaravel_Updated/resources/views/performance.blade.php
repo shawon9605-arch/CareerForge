@@ -142,7 +142,7 @@
             <div class="stat-card">
 
                 <h3>
-                    12
+                    {{ count($skills) }}
                 </h3>
 
                 <p>
@@ -154,7 +154,7 @@
             <div class="stat-card">
 
                 <h3>
-                    78%
+                    {{ $overallProgress }}%
                 </h3>
 
                 <p>
@@ -166,7 +166,7 @@
             <div class="stat-card">
 
                 <h3>
-                    5
+                    {{ $completedAssessments }}
                 </h3>
 
                 <p>
@@ -251,13 +251,27 @@
 
                 <div class="event-content">
 
-                    <h4>
-                        JavaScript Assessment Completed
-                    </h4>
+                    @if($latestQuiz)
 
-                    <p>
-                        Score: 85%
-                    </p>
+                        <h4>
+                            Latest Quiz Completed
+                        </h4>
+
+                        <p>
+                            Score: {{ $latestQuiz->score }}
+                        </p>
+
+                    @else
+
+                        <h4>
+                            No Quiz Attempted Yet
+                        </h4>
+
+                        <p>
+                            Start giving quizzes
+                        </p>
+
+                    @endif
 
                 </div>
 
@@ -271,13 +285,27 @@
 
                 <div class="event-content">
 
-                    <h4>
-                        Added React.js Skill
-                    </h4>
+                    @if(count($skills) > 0)
 
-                    <p>
-                        Recently updated profile skills
-                    </p>
+                        <h4>
+                            Added {{ end($skills) }} Skill
+                        </h4>
+
+                        <p>
+                            Recently updated profile skills
+                        </p>
+
+                    @else
+
+                        <h4>
+                            No Skills Added Yet
+                        </h4>
+
+                        <p>
+                            Update your profile skills
+                        </p>
+
+                    @endif
 
                 </div>
 
