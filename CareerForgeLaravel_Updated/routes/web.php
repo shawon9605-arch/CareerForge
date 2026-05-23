@@ -10,6 +10,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\CVController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\PerformanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -155,5 +156,6 @@ Route::middleware([])->group(function () {
         'download'
 
     ]);
+    Route::get('/performance', [PerformanceController::class, 'index']);
 
 });
