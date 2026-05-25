@@ -100,13 +100,18 @@
 
                 </h1>
 
-                <p style="opacity:0.7; margin-top:-10px;">
+                <p style="
+                    opacity:0.7;
+                    margin-top:-10px;
+                ">
 
                     Explore opportunities based on your skills & interests
 
                 </p>
 
             </div>
+
+            <!-- PROFILE -->
 
             <div class="profile">
 
@@ -123,7 +128,11 @@
 
                     </strong>
 
-                    <p style="opacity:0.6; font-size:13px; margin-top:4px;">
+                    <p style="
+                        opacity:0.6;
+                        font-size:13px;
+                        margin-top:4px;
+                    ">
 
                         CareerForge User
 
@@ -173,7 +182,9 @@
 
                         <div>
 
-                            <h2 style="margin-bottom:8px;">
+                            <h2 style="
+                                margin-bottom:8px;
+                            ">
 
                                 {{ $job->title }}
 
@@ -255,7 +266,7 @@
                                 '{{ $job->company }}'
                             )">
 
-                            Apply Now
+                            🚀 Apply Now
 
                         </button>
 
@@ -315,7 +326,13 @@
 
         <form>
 
-            <label style="display:block; margin-bottom:10px; opacity:0.7;">
+            <!-- JOB TITLE -->
+
+            <label style="
+                display:block;
+                margin-bottom:10px;
+                opacity:0.7;
+            ">
 
                 Job Position
 
@@ -329,7 +346,13 @@
 
             <br><br>
 
-            <label style="display:block; margin-bottom:10px; opacity:0.7;">
+            <!-- COMPANY -->
+
+            <label style="
+                display:block;
+                margin-bottom:10px;
+                opacity:0.7;
+            ">
 
                 Company
 
@@ -343,7 +366,13 @@
 
             <br><br>
 
-            <label style="display:block; margin-bottom:10px; opacity:0.7;">
+            <!-- USER NAME -->
+
+            <label style="
+                display:block;
+                margin-bottom:10px;
+                opacity:0.7;
+            ">
 
                 Full Name
 
@@ -356,7 +385,13 @@
 
             <br><br>
 
-            <label style="display:block; margin-bottom:10px; opacity:0.7;">
+            <!-- EMAIL -->
+
+            <label style="
+                display:block;
+                margin-bottom:10px;
+                opacity:0.7;
+            ">
 
                 Email
 
@@ -369,7 +404,13 @@
 
             <br><br>
 
-            <label style="display:block; margin-bottom:10px; opacity:0.7;">
+            <!-- COVER LETTER -->
+
+            <label style="
+                display:block;
+                margin-bottom:10px;
+                opacity:0.7;
+            ">
 
                 Cover Letter
 
@@ -381,23 +422,30 @@
 
             <br><br>
 
-            <label style="display:block; margin-bottom:10px; opacity:0.7;">
+            <!-- CV -->
+
+            <label style="
+                display:block;
+                margin-bottom:10px;
+                opacity:0.7;
+            ">
 
                 Upload CV
 
             </label>
 
-            <input
-                type="file"
-            >
+            <input type="file">
 
             <br><br>
 
+            <!-- SUBMIT -->
+
             <button
                 type="button"
-                style="width:100%;">
+                style="width:100%;"
+                onclick="submitApplication()">
 
-                Submit Application
+                ✅ Submit Application
 
             </button>
 
@@ -411,68 +459,140 @@
 
 <script>
 
-    function openApplyModal(
-        title,
-        company
-    ) {
+function openApplyModal(
+    title,
+    company
+) {
 
-        document
-            .getElementById('applyModal')
-            .style.display = 'flex';
+    document
+        .getElementById(
+            'applyModal'
+        )
+        .style.display = 'flex';
 
-        document
-            .getElementById('jobTitle')
-            .value = title;
+    document
+        .getElementById(
+            'jobTitle'
+        )
+        .value = title;
 
-        document
-            .getElementById('companyName')
-            .value = company;
+    document
+        .getElementById(
+            'companyName'
+        )
+        .value = company;
 
-    }
+}
 
-    function closeApplyModal() {
+function closeApplyModal() {
 
-        document
-            .getElementById('applyModal')
-            .style.display = 'none';
+    document
+        .getElementById(
+            'applyModal'
+        )
+        .style.display = 'none';
 
-    }
+}
 
-    function searchJobs() {
+// SEARCH JOBS
 
-        let input =
-        document
-            .getElementById(
-                'jobSearch'
-            )
-            .value
-            .toLowerCase();
+function searchJobs() {
 
-        let jobs =
-        document.querySelectorAll(
-            '.searchable-job'
-        );
+    let input =
+    document
+        .getElementById(
+            'jobSearch'
+        )
+        .value
+        .toLowerCase();
 
-        jobs.forEach((job) => {
+    let jobs =
+    document.querySelectorAll(
+        '.searchable-job'
+    );
 
-            let text =
-            job.innerText.toLowerCase();
+    jobs.forEach((job) => {
 
-            if(text.includes(input)) {
+        let text =
+        job.innerText.toLowerCase();
 
-                job.style.display = 'block';
+        if(text.includes(input)) {
 
-            }
+            job.style.display =
+            'block';
 
-            else {
+        }
 
-                job.style.display = 'none';
+        else {
 
-            }
+            job.style.display =
+            'none';
 
-        });
+        }
 
-    }
+    });
+
+}
+
+// SUBMIT APPLICATION
+
+function submitApplication() {
+
+    // CLOSE MODAL
+
+    closeApplyModal();
+
+    // SUCCESS MESSAGE
+
+    let success =
+    document.createElement('div');
+
+    success.innerHTML =
+    '✅ Application Submitted Successfully!';
+
+    success.style.position =
+    'fixed';
+
+    success.style.top =
+    '30px';
+
+    success.style.right =
+    '30px';
+
+    success.style.padding =
+    '18px 28px';
+
+    success.style.borderRadius =
+    '18px';
+
+    success.style.background =
+    'linear-gradient(90deg,#10b981,#059669)';
+
+    success.style.color =
+    'white';
+
+    success.style.fontWeight =
+    '600';
+
+    success.style.zIndex =
+    '99999';
+
+    success.style.boxShadow =
+    '0 15px 40px rgba(0,0,0,0.35)';
+
+    document.body.appendChild(
+        success
+    );
+
+    // AUTO REMOVE
+
+    setTimeout(() => {
+
+        success.remove();
+
+    }, 3000);
+
+}
 
 </script>
 
