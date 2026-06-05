@@ -57,6 +57,12 @@
 
         </a>
 
+        <a href="/resource-recommendation">
+
+    📖 Resources
+
+</a>
+
         <a href="/quizzes">
 
             📚 Assessments

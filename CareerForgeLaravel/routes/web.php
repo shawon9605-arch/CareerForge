@@ -10,6 +10,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\CVController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ResourceRecommendationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -180,5 +181,17 @@ Route::middleware([])->group(function () {
         '/community/share/{id}',
         [CommunityController::class, 'share']
     );
+
+    // RESOURCE RECOMMENDATION
+Route::get(
+    '/resource-recommendation',
+    [ResourceRecommendationController::class, 'index']
+);
+
+Route::get(
+    '/resource/category/{category}',
+    [ResourceRecommendationController::class, 'category']
+);
+
 
 });

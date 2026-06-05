@@ -874,3 +874,247 @@ RESPONSIVE
     gap: 15px;
 
 }
+
+/* RESOURCES PAGE */
+
+.resources-hero{
+
+    background: linear-gradient(
+        135deg,
+        #6d28d9,
+        #9333ea
+    );
+
+    padding:40px;
+    border-radius:20px;
+
+    margin-bottom:30px;
+
+    color:white;
+}
+
+.resources-hero h1{
+
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.resources-hero p{
+
+    opacity:.85;
+}
+
+.resource-search{
+
+    margin-bottom:30px;
+}
+
+.resource-search input{
+
+    width:100%;
+    padding:18px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:#202944;
+
+    color:white;
+
+    font-size:16px;
+}
+
+.resource-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:25px;
+}
+
+.resource-card{
+
+    background:#202944;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    margin-bottom:20px;
+
+    color:white;
+}
+
+.resource-card h2{
+
+    margin-bottom:10px;
+}
+
+.resource-card p{
+
+    opacity:.8;
+    margin-bottom:15px;
+}
+
+.resource-card a{
+
+    background:linear-gradient(
+        135deg,
+        #7c3aed,
+        #9333ea
+    );
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    display:inline-block;
+}
+
+.resource-card ul{
+
+    list-style:none;
+    padding:0;
+}
+
+/* Category Links */
+
+.resource-card ul li{
+
+    margin-bottom:10px;
+}
+
+.resource-card ul li a{
+
+    display:block;
+
+    padding:10px 15px;
+
+    background:#2a3557;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:10px;
+
+    transition:.3s;
+}
+
+.resource-card ul li a:hover{
+
+    background:#7c3aed;
+
+    transform:translateX(5px);
+}
+
+/* All Resources Button */
+
+.resource-all-btn{
+
+    display:block;
+
+    text-align:center;
+
+    background:#7c3aed;
+
+    color:white;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    margin-bottom:15px;
+
+    font-weight:600;
+}
+
+
+.resource-form h2{
+
+    margin-bottom:20px;
+}
+
+.resource-form input,
+.resource-form textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-bottom:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#111827;
+
+    color:white;
+}
+
+.resource-form button{
+
+    background:linear-gradient(
+        135deg,
+        #7c3aed,
+        #9333ea
+    );
+
+    color:white;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+.resource-badge{
+
+    background:#7c3aed;
+
+    color:white;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    display:inline-block;
+
+    margin-bottom:12px;
+}
+
+.resource-desc{
+
+    opacity:.8;
+
+    line-height:1.6;
+}
+
+.resource-image{
+
+    width:100%;
+
+    height:180px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    margin-bottom:15px;
+}
