@@ -308,6 +308,13 @@
             🌍 Community
 
         </a>
+        </a>
+
+        <a href="/resource-recommendation">
+
+    📖 Resources
+
+    </a>
 
         <a href="/quizzes"
         class="{{ request()->is('quizzes') ? 'active' : '' }}">
